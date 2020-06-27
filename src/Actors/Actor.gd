@@ -1,10 +1,13 @@
 extends KinematicBody2D
 class_name Actor
 
-export var gravity: = 3000.0
-var velocity: = Vector2.ZERO
+const UP_DIRECTION: = Vector2.UP
 
-# Our movement code goes here
-func _physics_process(delta: float) -> void:
-	velocity.y += gravity * delta
-	move_and_slide(velocity)
+# sera limitado o speed
+export var speed: = Vector2(300.0, 1000.0)
+
+#Sera aplicada a gravidade no eixo y
+export var gravity: = 4000.0
+
+# variavel privada com _
+var _velocity: = Vector2.ZERO
