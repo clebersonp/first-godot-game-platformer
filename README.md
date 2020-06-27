@@ -1,2 +1,2 @@
 # first-godot-game-platformer
-Platformer (GDGUEST TUTORIAL)
+Platformer (GDQUEST TUTORIAL)
