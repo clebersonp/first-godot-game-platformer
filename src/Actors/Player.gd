@@ -1,5 +1,7 @@
 extends Actor
 
+export var stomp_impulse: = 1300.0 
+
 # sobrescrita de funcoes, executa a funcao da hierarquia e esta tbm. O Pai eh executado primeiro
 # physics process is called from the parent class down the chain
 func _physics_process(delta: float) -> void:
@@ -16,12 +18,22 @@ func get_direction() -> Vector2:
 
 func calculate_move_velocity(linear_velocity: Vector2, direction: Vector2,
 	speed: Vector2, delta: float, is_jump_interrupted: bool) -> Vector2:
-	
 	var out: = linear_velocity
 	out.x = speed.x * direction.x
 	out.y += gravity * delta
 	if direction.y == -1.0:
-		out.y = speed.y * direction.y
+		out.y = speed.y * direction.y 
 	if is_jump_interrupted:
 		out.y = 0.0
 	return out
+
+func _on_StompDetector_area_entered(area: Area2D) -> void:
+	_velocity = calculate_stomp_velocity(_velocity, stomp_impulse)
+
+func calculate_stomp_velocity(linear_velocity: Vector2, impulse: float) -> Vector2:
+	var out: = linear_velocity
+	out.y = -impulse
+	return out
+
+func _on_EnemyDetector_body_entered(body: Node) -> void:
+	queue_free()
