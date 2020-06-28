@@ -9,7 +9,9 @@ func _physics_process(delta: float) -> void:
 	_velocity.y += gravity * delta
 	if is_on_wall():
 		_velocity.x *= -1.0
-	_velocity.y = move_and_slide(_velocity, UP_DIRECTION).y
+	# para manter o inimigo ancorado no chao em inclinacoes
+	var snap: = Vector2.DOWN * 80.0
+	_velocity.y = move_and_slide_with_snap(_velocity, snap, UP_DIRECTION).y
 
 func _on_StompDetector_body_entered(body: Node) -> void:
 	print("body: ", body.global_position.y, " stomp: ", get_node("StompDetector").global_position.y)

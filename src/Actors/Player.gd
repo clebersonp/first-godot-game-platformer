@@ -8,7 +8,9 @@ func _physics_process(delta: float) -> void:
 	var is_jump_interrupted: = Input.is_action_just_released("jump") and _velocity.y < 0.0
 	var direction: = get_direction()
 	_velocity = calculate_move_velocity(_velocity, direction, speed, delta, is_jump_interrupted)
-	_velocity = move_and_slide(_velocity, UP_DIRECTION)
+	# alterado para move_and_slide_with_snap para nao escorregar e pular em inclinacoes
+	var snap: = Vector2.DOWN * 50.0 if direction.y == 1.0 else Vector2.ZERO
+	_velocity = move_and_slide_with_snap(_velocity, snap, UP_DIRECTION, true, 4, PI / 3)
 
 func get_direction() -> Vector2:
 	return Vector2(
